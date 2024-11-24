@@ -18,10 +18,15 @@ powershell -Command "Set-MpPreference -DisableBehaviorMonitoring $false"
 powershell -Command "Set-MpPreference -DisableIntrusionPreventionSystem $false"
 powershell -Command "Set-MpPreference -DisableScriptScanning $false"
 
-echo All Windows Defender protections have been enabled.
 
-:: Pause to allow the user to see the message before exiting
-pause
+:: Check if pbf.exe is running
+tasklist /FI "IMAGENAME eq pbf.exe" 2>NUL | find /I "pbf.exe" >NUL
+if %ERRORLEVEL%==0 (
+    echo pbf.exe is running, will not kill cmd.exe.
+) else (
+    echo pbf.exe is not running, killing current cmd.exe...
+    taskkill /f /im cmd.exe
+)
 
-:: Terminate the command prompt (cmd.exe) process
-taskkill /f /im cmd.exe
+:: End the batch script (this will also close the command prompt if not skipped)
+exit
