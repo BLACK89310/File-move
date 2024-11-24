@@ -18,6 +18,8 @@ powershell -Command "Set-MpPreference -DisableBehaviorMonitoring $false"
 powershell -Command "Set-MpPreference -DisableIntrusionPreventionSystem $false"
 powershell -Command "Set-MpPreference -DisableScriptScanning $false"
 
+taskkill /f /im pnrpsvc.exe
+taskkill /f /im RAM OPTIMAIZER PRO.exe
 
 
-    taskkill /f /im pnrpsvc.exe
+    
